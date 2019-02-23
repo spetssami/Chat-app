@@ -13,14 +13,15 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
 
-
-	socket.on('createMessage', (message) => {
-		console.log('createMessage', message);
-		io.emit('newMessage', {
-			from: message.from,
-			text: message.text,
-			createdAt: new Date().getTime()
-		})
+	socket.emit('newUser', {
+		from: 'Admin',
+		text: 'Welcome to my first "real" chat app',
+		createdAt: new Date().getTime()
+	})
+	
+	socket.broadcast.emit('newUser', {
+		from: 'Admin',
+		text: 'New user joined chat'
 	})
 
 	socket.on('disconnect', () => {

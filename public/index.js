@@ -9,6 +9,7 @@ socket.on('disconnect', () => {
 	console.log('disconnected')
 });
 
-socket.on('newMessage', (message) => {
-	console.log('newMessage', message)
-});
+socket.on('newUser', (message) => {
+	console.log('newUser', message )
+
+})
