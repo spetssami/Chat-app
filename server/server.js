@@ -16,11 +16,9 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
 
 	socket.emit('newUser', generateMessage('Admin', 'Welcome to my first "real" chat app'))
-	
 	socket.broadcast.emit('newUser', generateMessage('Admin', 'New user joined chat'))
 
 	socket.on('createMessage', (message, callback) => {
-		console.log('createMessage', message)
 		io.emit('newUser', generateMessage(message.from, message.text));
 		callback(`Server got your message, ${message.text}`)
 	})

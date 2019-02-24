@@ -10,9 +10,9 @@ socket.on('disconnect', () => {
 });
 
 socket.on('newUser', (message) => {
-	console.log('newUser', message )
+	const formattedTime = moment(message.createdAt).format('HH:mm')
 	let li = document.createElement('LI')
-	li.innerHTML = `${message.from}: ${message.text}`
+	li.innerHTML = `${message.from} ${formattedTime}: ${message.text}`
 	document.getElementById('messages').appendChild(li)
 })
 
