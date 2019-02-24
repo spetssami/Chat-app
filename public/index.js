@@ -10,10 +10,18 @@ socket.on('disconnect', () => {
 });
 
 socket.on('newUser', (message) => {
-	const formattedTime = moment(message.createdAt).format('HH:mm')
-	let li = document.createElement('LI')
-	li.innerHTML = `${message.from} ${formattedTime}: ${message.text}`
-	document.getElementById('messages').appendChild(li)
+	const creationTime = moment(message.createdAt).format('HH:mm')
+	const messageField = document.getElementById('message-field').innerHTML
+	const html = Mustache.render(messageField, {
+		text: message.text,
+		from: message.from,
+		createdAt: creationTime
+	})
+	document.getElementById('messages').innerHTML += html
+	// const formattedTime = moment(message.createdAt).format('HH:mm')
+	// let li = document.createElement('LI')
+	// li.innerHTML = `${message.from} ${formattedTime}: ${message.text}`
+	// document.getElementById('messages').appendChild(li)
 })
 
 let messageForm = document.getElementById('message-form')

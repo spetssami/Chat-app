@@ -13,7 +13,7 @@
 	</div>
 
 	<div class= 'chat__main'>
-		<ol id='messages'></ol>
+		<ol id='messages' class='chat__messages'></ol>
 		<div class='chat__footer'>
 			<form id="message-form">
 				<input type="text" id='name' placeholder="message" autofocus autocomplete='off'/>
@@ -21,8 +21,20 @@
 			</form>
 		</div>
 	</div>
+	<script id="message-field" type="text/template">
+		<li class='message'>
+			<div class='message__title'>
+				<h4>{{from}}</h4>
+				<span>{{createdAt}}</span>
+			</div>
+			<div class='message__body'>
+				<p>{{text}}</p>
+			</div>
+		</li>
+	</script>
 	<script src='/socket.io/socket.io.js'></script>
 	<script src='/index.js'></script>
+	<script src='/libs/mustache.js'></script>
 	<script src='/libs/moment.js'></script>
 </body>
 </html>
