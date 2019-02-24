@@ -25,6 +25,6 @@ messageForm.addEventListener("submit", (event) => {
 		from: 'User',
 		text: document.getElementById('name').value
 	}, (data) => {
-		console.log(data)
+		document.getElementById('name').value = '';
 	})
 })
