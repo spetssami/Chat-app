@@ -12,6 +12,7 @@ scrollToBottom = () => {
 	const newMessageHeight = turnIntoNumber(newMessage)
 	let lastMessageHeight;
 	hasLastMessage ? (lastMessageHeight = turnIntoNumber(newMessage.previousElementSibling)) : (hasLastMessage = true)
+	
 	if(scrollHeight <= clientHeight + scrollTop + newMessageHeight + lastMessageHeight){
 		messages.scrollTo(0, scrollHeight)
 	}
