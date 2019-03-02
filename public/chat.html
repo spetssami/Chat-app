@@ -8,8 +8,16 @@
 <body class='chat'>
 
 	<div class="chat__sidebar">
-		<h3>People</h3>
-		<div id='users'></div>
+		<h3>Users online</h3>
+		<div id='users'>
+			<script id="sidebar" type='text/template'>
+				<ul>
+					{{#users}}
+						<li>{{username}}</li>
+					{{/users}}
+				</ul>			
+			</script>
+		</div>
 	</div>
 
 	<div class= 'chat__main'>

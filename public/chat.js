@@ -24,14 +24,35 @@ turnIntoNumber = (str) => {
 	return number;
 }
 
-socket.on('connect', () => {
-	console.log('connected')
+urlParser = (url) => {
+	const roomStart = url.lastIndexOf("&room=")
+	const username = url.substring(6, roomStart)
+	const room = url.substring(roomStart+6)
+	return {
+		username,
+		room
+	}
+}
 
+socket.on('connect', () => {
+	const {username, room} = urlParser(window.location.search)
+	socket.emit('join', {username, room}, (err) => {
+		err ? (alert(err), window.location.href = '/') : console.log('No error')
+	})
 });
 
 socket.on('disconnect', () => {
 	console.log('disconnected')
 });
+
+const sidebar = document.getElementById('sidebar').innerHTML
+socket.on('roomData', ({ room, users}) => {
+	const html = Mustache.render(sidebar, {
+		room,
+		users
+	})
+	document.getElementById('users').innerHTML = html
+})
 
 socket.on('newUser', (message) => {
 	const creationTime = moment(message.createdAt).format('HH:mm')
@@ -51,7 +72,6 @@ messageForm.addEventListener("submit", (event) => {
 	event.preventDefault();
 
 	socket.emit('createMessage', {
-		from: 'User',
 		text: document.getElementById('name').value
 	}, (data) => {
 		document.getElementById('name').value = '';
